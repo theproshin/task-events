@@ -83,4 +83,20 @@ export function createLink() {
       При клике по button в конец списка добавляется новый элемент li с текстом: "Пункт".
       Клик по новому li также добавляет восклицательный знак в конец текста.
 */
-export function createList() {}
+export function createList() {
+    const handler = function (e) {
+        if (e.target && e.target.nodeName === 'LI') {
+            e.target.textContent += '!';
+        }
+    };
+    let innerList = '<ul><li>Пункт</li></ul><button>Добавить пункт</button>';
+    document.body.innerHTML = innerList;
+    document.querySelector('button').addEventListener('click', () => {
+        let li = document.createElement('li');
+        let txt = document.createTextNode('Пункт');
+        li.appendChild(txt);
+        li.addEventListener('click', handler);
+        document.querySelector('ul').appendChild(li);
+    });
+    document.querySelector('li').addEventListener('click', handler);
+}
